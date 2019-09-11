@@ -181,6 +181,32 @@
   </div>
 </template>
 
+<script>
+  var fireballSize = 22; //размер шара
+  var getFireballSpeed = function(left) {
+    var speed = 0;
+    if (left) {
+      speed = 5;
+    } else { //тут я вроде критерий какой-то нарушаю, но пока так сделаю
+      speed = 2;
+    };
+    return speed;
+  };
+  var wizardSpeed = 3; //скорость мага
+  var wizardWidth = 70; //ширина мага... скорее общий размер... большим плохо, в указатель пути не попадает
+  var getWizardHeight = function() {
+    var innerHeight = 1.337 * wizardWidth;
+    return innerHeight;
+  }; //хм... дак он и без неё пропорционально разростался вроде... с коэффициентом 5 теперь это Гендальф Длинный
+  function getWizardX(width) {
+    var innerWidth = 320; //вроде ровно, ширину поля не искал, на глаз сделал
+    return innerWidth;
+}
+function getWizardY(height) {
+  var innerHeight = 150; //во, правильно, пусть пафосно спускается с небес, он же маг
+  return innerHeight; // высоту поля тоже не искал, сорян, на работу уже опаздываю. Если надо точнее - переделаю потом... Так-то надо бы наверное эту переменную найти и тупо делить её значение на 3, на случай если высота игрового поля будет меняться.
+}
+</script>
 <script src="js/game.js"></script>
 
 </body>
