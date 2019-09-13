@@ -182,30 +182,49 @@
 </template>
 
 <script>
-  var fireballSize = 22; //размер шара
-  var getFireballSpeed = function(left) {
-    var speed = 0;
-    if (left) {
-      speed = 5;
-    } else { //тут я вроде критерий какой-то нарушаю, но пока так сделаю
-      speed = 2;
-    };
-    return speed;
+  var FIRE_BALL_SIZE = 22;
+  var WIZARD_SPEED = 3;
+  var WIZARD_WIDTH = 70;
+//В JS константы объявляются словом вар-вариэйбл-переменная... Прекрасно.
+
+  var fireballSize = FIRE_BALL_SIZE;
+  var wizardSpeed = WIZARD_SPEED;
+  var wizardWidth = WIZARD_WIDTH;
+
+  function getFireballSpeed (left) {
+    var throwSpeed;
+    left ? throwSpeed = 5 : throwSpeed = 2;
+    return throwSpeed;
+    //без промежуточной переменной почему-то не получилось: left ? return 5 : return 2;
+    /*
+    Вариант без тернарного оператора:
+      if (left) {
+        return 5;
+      };
+      return 2;
+    */
   };
-  var wizardSpeed = 3; //скорость мага
-  var wizardWidth = 70; //ширина мага... скорее общий размер... большим плохо, в указатель пути не попадает
-  var getWizardHeight = function() {
-    var innerHeight = 1.337 * wizardWidth;
-    return innerHeight;
-  }; //хм... дак он и без неё пропорционально разростался вроде... с коэффициентом 5 теперь это Гендальф Длинный
-  function getWizardX(width) {
-    var innerWidth = 320; //вроде ровно, ширину поля не искал, на глаз сделал
-    return innerWidth;
+
+  function getWizardHeight () {
+    return wizardWidth * 1.337;
+  };
+
+  function getWizardX (width) {
+    return width / 2 - WIZARD_WIDTH / 2;
+  }
+
+  function getWizardY (height) {
+    return height / 3;
+    // return height / 3 - getWizardHeight ();
 }
-function getWizardY(height) {
-  var innerHeight = 150; //во, правильно, пусть пафосно спускается с небес, он же маг
-  return innerHeight; // высоту поля тоже не искал, сорян, на работу уже опаздываю. Если надо точнее - переделаю потом... Так-то надо бы наверное эту переменную найти и тупо делить её значение на 3, на случай если высота игрового поля будет меняться.
-}
+
+/*
+ВОПРОСЫ НАСТАВНИКУ:
+1) "Начало модуля" (место размещения констант) - это имеется в виду под открывающим тегом "скрипт"?
+2) А что такое "Магические значения"? Хмм... типа переменная нужна для того, чтобы менять сам параметр в коде, а константа, чтобы можно было на него легко повлиять человеку из вне? Или как это правильно сформулировать-то... Я понимаю, что это какой-то "этикет", но пока не понимаю его обоснования, осмысленности, практической полезности.
+3) У мага при респауне макушка должна упираться в 2/3 высоты экрана или ногами стоять он должен на этом уровне? В функции предуспотрены оба варианта, второй закомментирован.
+*/
+
 </script>
 <script src="js/game.js"></script>
 
