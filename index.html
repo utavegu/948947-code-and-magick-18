@@ -182,50 +182,30 @@
 </template>
 
 <script>
-  var FIRE_BALL_SIZE = 22;
-  var WIZARD_SPEED = 3;
-  var WIZARD_WIDTH = 70;
-//В JS константы объявляются словом вар-вариэйбл-переменная... Прекрасно.
-
-  var fireballSize = FIRE_BALL_SIZE;
-  var wizardSpeed = WIZARD_SPEED;
-  var wizardWidth = WIZARD_WIDTH;
+  var GROWTH_INDEX = 1.337;
+  var fireballSize = 22;
+  var wizardSpeed = 3;
+  var wizardWidth = 70;
 
   function getFireballSpeed (left) {
-    var throwSpeed;
-    left ? throwSpeed = 5 : throwSpeed = 2;
-    return throwSpeed;
-    //без промежуточной переменной почему-то не получилось: left ? return 5 : return 2;
-    /*
-    Вариант без тернарного оператора:
-      if (left) {
-        return 5;
-      };
-      return 2;
-    */
+    return (left ? 5 : 2);
   };
 
   function getWizardHeight () {
-    return wizardWidth * 1.337;
+    return wizardWidth * GROWTH_INDEX;
   };
 
+//В двух функциях ниже, я надеюсь, не нужно в константы объявлять, что это за двойки и тройки? Вообще пока плохо понимаю, когда значение просится в константу, когда нет.
+
   function getWizardX (width) {
-    return width / 2 - WIZARD_WIDTH / 2;
+    return width / 2 - wizardWidth / 2;
   }
 
   function getWizardY (height) {
     return height / 3;
-    // return height / 3 - getWizardHeight ();
 }
-
-/*
-ВОПРОСЫ НАСТАВНИКУ:
-1) "Начало модуля" (место размещения констант) - это имеется в виду под открывающим тегом "скрипт"?
-2) А что такое "Магические значения"? Хмм... типа переменная нужна для того, чтобы менять сам параметр в коде, а константа, чтобы можно было на него легко повлиять человеку из вне? Или как это правильно сформулировать-то... Я понимаю, что это какой-то "этикет", но пока не понимаю его обоснования, осмысленности, практической полезности.
-3) У мага при респауне макушка должна упираться в 2/3 высоты экрана или ногами стоять он должен на этом уровне? В функции предуспотрены оба варианта, второй закомментирован.
-*/
-
 </script>
+
 <script src="js/game.js"></script>
 
 </body>
