@@ -7,17 +7,18 @@ var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var NUMBER_OF_CHARACTERS_DISPLAYED = 4;
 
 // Сам попуп. Показать попуп.
-var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+var userDialogElement = document.querySelector('.setup');
+userDialogElement.classList.remove('hidden');
 
 // ФУНКЦИЯ, перемешивающая получаемый на вход массив
 var mixArray = function (array) {
   var result = [];
-  for (var i = 0; i < array.length; i++) {
+  i = 0;
+  while (i < 8) {
     var randomIndex = Math.floor(Math.random() * array.length);
     result.push(array[randomIndex]);
     array.splice(randomIndex, 1);
-    i--;
+    i++;
   }
   return result;
 };
@@ -46,11 +47,11 @@ var wizards = createWizards(WIZARD_NAMES, WIZARD_SURNAMES, COAT_COLORS, EYE_COLO
 var similarListElement = document.querySelector('.setup-similar-list');
 
 // А тут шаблон
-var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
+var similarWizardTemplateElement = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
 // ФУНКЦИЯ, отрисовывающая мага
 var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
+  var wizardElement = similarWizardTemplateElement .cloneNode(true);
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
   wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
@@ -58,15 +59,15 @@ var renderWizard = function (wizard) {
 };
 
 // Новый фрагмент
-var fragment = document.createDocumentFragment();
+var fragmentElement = document.createDocumentFragment();
 
 // Упакуем туда отрисованных магов
 for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
+  fragmentElement.appendChild(renderWizard(wizards[i]));
 }
 
 // Сунем готовый кусок в разметку
-similarListElement.appendChild(fragment);
+similarListElement.appendChild(fragmentElement);
 
 // И покажем как у нас заебись всё получилось
 document.querySelector('.setup-similar').classList.remove('hidden');
