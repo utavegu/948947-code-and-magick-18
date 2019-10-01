@@ -25,7 +25,7 @@ var renderCloud = function (ctx, x, y, color) {
 };
 
 // ФУНКЦИЯ, рисует текст победителя
-var congratulationsText = function (ctx, winText) {
+var printCongratulationsText = function (ctx, winText) {
   ctx.fillStyle = COLOR;
   ctx.font = FONT;
   winText = winText.split('\n');
@@ -51,7 +51,7 @@ window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_SHADOW);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR);
 
-  congratulationsText(ctx, WIN_TEXT);
+  printCongratulationsText(ctx, WIN_TEXT);
 
   // Пропорция
   var maxTime = Math.max.apply({}, times);
