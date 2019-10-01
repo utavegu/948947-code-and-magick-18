@@ -14,8 +14,7 @@ var CONGRATULATION_X = 235;
 var CONGRATULATION_Y = 30;
 var CLOUD_COLOR = '#fff';
 var CLOUD_SHADOW = 'rgba(0, 0, 0, 0.7)';
-var WIN_TEXT = 'Ура вы победили!';
-var RESULT_TEXT = 'Список результатов:';
+var WIN_TEXT = 'Ура вы победили!\nСписок результатов:';
 var COLOR = '#000';
 var FONT = '16px PT Mono';
 
@@ -25,23 +24,18 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-// Статистика
-// Рендерит облако
-window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_SHADOW);
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR);
-
-  // Текст окна поздравлений
+// ФУНКЦИЯ, рисует текст победителя
+var congratulationsText = function (ctx, winText) {
   ctx.fillStyle = COLOR;
   ctx.font = FONT;
-  ctx.fillText(WIN_TEXT, CONGRATULATION_X, CONGRATULATION_Y);
-  ctx.fillText(RESULT_TEXT, CONGRATULATION_X - 10, CONGRATULATION_Y + 20);
+  winText = winText.split('\n');
+  for (var i = 0; i < winText.length; i++) {
+    ctx.fillText(winText[i], CONGRATULATION_X - i * 10, CONGRATULATION_Y + i * 20);
+  }
+};
 
-  // Пропорция
-  var maxTime = Math.max.apply({}, times);
-  var proportion = maxTime / COLUMN_HEIGHT;
-
-  // Отрисовка статистики
+// ФУНКЦИЯ, отрисовка колонок
+var renderColumns = function (ctx, players, times, proportion) {
   for (var i = 0; i < players.length; i++) {
     ctx.fillText(players[i], CLOUD_X + GAP * 5 + TEXT_X_GAP * i, GAP * 2 + TEXT_Y_GAP);
     ctx.fillText(Math.round(times[i]), CLOUD_X + GAP * 5 + TEXT_X_GAP * i, TEXT_Y_GAP - FONT_GAP - (times[i] / proportion));
@@ -52,6 +46,17 @@ window.renderStatistics = function (ctx, players, times) {
   }
 };
 
-// НАСТАВНИКУ
-// 1) Рекомендации по поводу заворачивания поздравительного текста в функцию понял, но пока не реализую, оставлю это в желательных правках.
-// 2) Есть подозрения, что наплодил лишка констант, в погоне за избавлением от магических чисел. Или норм?
+// Статистика
+window.renderStatistics = function (ctx, players, times) {
+  renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_SHADOW);
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR);
+
+  congratulationsText(ctx, WIN_TEXT);
+
+  // Пропорция
+  var maxTime = Math.max.apply({}, times);
+  var proportion = maxTime / COLUMN_HEIGHT;
+
+  renderColumns(ctx, players, times, proportion);
+
+};
