@@ -58,5 +58,4 @@ window.renderStatistics = function (ctx, players, times) {
   var proportion = maxTime / COLUMN_HEIGHT;
 
   renderColumns(ctx, players, times, proportion);
-
 };
