@@ -50,10 +50,8 @@ var renderColumns = function (ctx, players, times, proportion) {
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, CLOUD_SHADOW);
   renderCloud(ctx, CLOUD_X, CLOUD_Y, CLOUD_COLOR);
-
   printCongratulationsText(ctx, WIN_TEXT);
 
-  // Пропорция
   var maxTime = Math.max.apply({}, times);
   var proportion = maxTime / COLUMN_HEIGHT;
 
