@@ -95,14 +95,16 @@ var inputFireballColor = document.querySelector('input[name="fireball-color"]');
 var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress); // Окно появилось, начинаем слушать хоткеи...
-  document.removeEventListener(setupOpen); // Это вы имели в виду? <<<<<<<<???
+  document.removeEventListener('click', setupOpen);
+  document.removeEventListener('keydown', setupOpen);
 };
 
 // ФУНКЦИЯ закрытия попапа
 var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress); // Спрятали окно, хоткеи больше не слушаем...
-  document.removeEventListener(setupClose); // Ну тогда и так заодно <<<<<<<<!!!
+  document.removeEventListener('click', setupClose);
+  document.removeEventListener('keydown', setupClose);
 };
 
 // ОБРАБОТЧИК закрытия попапа - в любом месте эскейпом
@@ -138,11 +140,8 @@ setupClose.addEventListener('keydown', function (evt) { // Крестик заф
 
 // ОБРАБОТЧИК, реагирующий на кнопку сабмита при неверно заполненном поле
 userNameInput.addEventListener('invalid', function () {
-  // if (userNameInput.validity.tooShort) {
-  //   userNameInput.setCustomValidity('ДЛИННЕЕ! НАДО ДЛИННЕЕ! СЛИШКОМ КОРОТКОЕ ИМЯ, ДЛЯ ШЕЛУДЛИВОГО ПСА!');
-  // } else --- !!!РАСКОММЕНТИРУЙ ПОТОМ!!!
-  if (userNameInput.validity.tooLong) {
-    userNameInput.setCustomValidity('Слишком длинно, пёс!');
+  if (userNameInput.validity.tooShort) {
+    userNameInput.setCustomValidity('ДЛИННЕЕ! НАДО ДЛИННЕЕ! СЛИШКОМ КОРОТКОЕ ИМЯ, ДЛЯ ШЕЛУДЛИВОГО ПСА!');
   } else if (userNameInput.validity.valueMissing) {
     userNameInput.setCustomValidity('Заполни поле, пёс!');
   } else {
